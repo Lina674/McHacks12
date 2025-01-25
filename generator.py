@@ -13,7 +13,7 @@ generation_config = {
 }
 
 model = genai.GenerativeModel(
-  model_name="gemini-1.5-flash",
+  model_name="gemini-1.5-flash-8b",
   generation_config=generation_config,
 )
 
@@ -29,7 +29,7 @@ def get_parsed_reponse(url : str) -> str :
 
     prompt = f"""
 
-    Generate a table containing a generous amount of detailed winning hackathon ideas. 
+    Generate a table containing a generous amount of new, diverse and detailed winning hackathon ideas. 
     The hackathon is sponsered by these companies : {companies} , and these 
     are the possible prizes : {prizes}.
 
@@ -56,5 +56,3 @@ def get_parsed_reponse(url : str) -> str :
             temp_json[keys[j]] = response[i][j]
         ideas_json["ideas_list"].append(temp_json)
     return ideas_json
-
-# print(get_parsed_reponse("https://mchacks-12.devpost.com/?ref_feature=challenge&ref_medium=discover"))
