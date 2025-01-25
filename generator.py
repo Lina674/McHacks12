@@ -25,7 +25,7 @@ chat_session = model.start_chat(
 # Get reponse from gemini and parse it into dictionary
 def get_parsed_reponse(url : str) -> str :
     
-    title,companies,prizes = get_title_prizes_companies(url)
+    title,companies,prizes, image_link = get_title_prizes_companies(url)
 
     prompt = f"""
 
@@ -49,10 +49,12 @@ def get_parsed_reponse(url : str) -> str :
     keys = response[0]
     response = response[1:]
 
-    ideas_json = {"hackathon" : title, "ideas_list" : []}
+    ideas_json = {"hackathon_title" : title, "ideas_list" : [], "image_src" : image_link}
     for i in range(len(response)) :
         temp_json = {}
         for j in range(len(keys)) :
             temp_json[keys[j]] = response[i][j]
         ideas_json["ideas_list"].append(temp_json)
     return ideas_json
+
+# print(get_parsed_reponse("https://mchacks-12.devpost.com/?ref_feature=challenge&ref_medium=discover"))
