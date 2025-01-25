@@ -1,10 +1,18 @@
-// j.js
+document.addEventListener("DOMContentLoaded", () => {
+    const submitBtn = document.getElementById("submitBtn");
+    const urlInput = document.getElementById("urlInput");
 
-// Function to greet the user
-function greet(name) {
-    return `Hello, ${name}!`;
-}
+    submitBtn.addEventListener("click", () => {
+        const url = urlInput.value;
 
-// Example usage
-const userName = 'World';
-console.log(greet(userName));
+        if (url) {
+            // Store URL in localStorage to use it on the loading page
+            localStorage.setItem("url", url);
+
+            // Redirect to the loading page
+            window.location.href = "loading.html";
+        } else {
+            alert("Please enter a valid URL.");
+        }
+    });
+});
