@@ -1,5 +1,5 @@
 from google import generativeai as genai
-import json
+from scraper import get_title_prizes_companies
 
 genai.configure(api_key="AIzaSyBQqnpIRFvNbjrZBDp1Fjgi_IsQmPpgcHU")
 
@@ -22,8 +22,22 @@ chat_session = model.start_chat(
   ]
 )
 
-# Get reponse from gemini
-def get_parsed_reponse(prompt : str, companies : list[str], prizes : list[str]) -> str :
+# Get reponse from gemini and parse it into dictionary
+def get_parsed_reponse(url : str) -> str :
+    
+    title,companies,prizes = get_title_prizes_companies(url)
+
+    prompt = f"""
+
+    Generate a table containing a generous amount of detailed winning hackathon ideas. 
+    The hackathon is sponsered by these companies : {companies} , and these 
+    are the possible prizes : {prizes}.
+
+    Cater each of the project ideas to a sponsoring company and a prize. You can include more
+    than one prize and more than one sponsor per project idea. 
+
+    """
+
     response = (chat_session.send_message(prompt)).text
     response = response.split("\n")
     
@@ -35,7 +49,7 @@ def get_parsed_reponse(prompt : str, companies : list[str], prizes : list[str]) 
     keys = response[0]
     response = response[1:]
 
-    ideas_json = {"ideas_list" : []}
+    ideas_json = {"hackathon" : title, "ideas_list" : []}
     for i in range(len(response)) :
         temp_json = {}
         for j in range(len(keys)) :
