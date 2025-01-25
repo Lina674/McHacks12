@@ -1,11 +1,17 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
+
+# Set up Chrome options
+options = Options()
+options.add_argument("--headless")  # Run in headless mode
+options.add_argument("--disable-gpu")  # Disable GPU for headless (optional)
 
 
 def get_title_prizes_companies(url):
     service = Service(r".\assets\chromedriver.exe")
-    driver = webdriver.Chrome(service=service)
+    driver = webdriver.Chrome(service=service, options=options)
 
     driver.get(url)
 
@@ -22,7 +28,6 @@ def get_title_prizes_companies(url):
     companies_text = [p.text for p in companies]
     driver.quit()
     return (title, prize_titles, companies_text)
-
 
 
 # driver.get("https://mcgill-physics-hackathon-2023.devpost.com/")
