@@ -4,7 +4,7 @@ from selenium.webdriver.common.by import By
 
 
 def get_title_prizes_companies(url):
-    service = Service("Assets/chromedriver.exe")
+    service = Service(r".\assets\chromedriver.exe")
     driver = webdriver.Chrome(service=service)
 
     driver.get(url)
@@ -28,6 +28,3 @@ def get_title_prizes_companies(url):
 # driver.get("https://mcgill-physics-hackathon-2023.devpost.com/")
 # driver.get("https://mchacks-12.devpost.com/?ref_feature=challenge&ref_medium=discover")
 # driver.get("https://hack-mcwics-2025.devpost.com/?ref_feature=challenge&ref_medium=discover")
-
-t,p,c = get_title_prizes_companies("https://mchacks-12.devpost.com/?ref_feature=challenge&ref_medium=discover")
-print(t,p,c)
