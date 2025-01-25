@@ -16,9 +16,13 @@ document.addEventListener("DOMContentLoaded", () => {
             })
             .then(response => response.json())
             .then(data => {
-                // After successfully sending the URL, redirect to the loading page
-                console.log("Server Response:", data);  // Add this to check the response
-                window.location.href = "loading.html";
+                console.log("Server Response:", data);  // Check the response
+                if (data.request_id) {
+                    // Store the request ID in localStorage for polling
+                    localStorage.setItem('request_id', data.request_id);
+                    // Redirect to the loading page
+                    window.location.href = "loading";  // Ensure correct relative path to loading page
+                }
             })
             .catch(error => {
                 alert("Error sending URL to server: " + error);
@@ -28,3 +32,30 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 });
+
+// Poll the server for the processed result
+function checkProcessingStatus() {
+    const requestId = localStorage.getItem('request_id');
+    if (requestId) {
+        fetch(`http://127.0.0.1:5000/get_processed_result/${requestId}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.message === "Still processing...") {
+                console.log("Still processing...");
+                setTimeout(checkProcessingStatus, 1000); // Poll again after 1 second
+            } else {
+                // Display the processed result
+                document.getElementById("result").textContent = data.message;
+                // Optionally, redirect back to home page or display the result differently
+            }
+        })
+        .catch(error => {
+            console.error("Error checking processing status:", error);
+        });
+    }
+}
+
+// Call checkProcessingStatus when the loading page is loaded
+if (window.location.pathname === '/loading') {
+    checkProcessingStatus();
+}
