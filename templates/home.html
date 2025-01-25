@@ -30,9 +30,36 @@
       padding: 29px 38px 114px;
       justify-content: center;
       align-items: center;
-     
     }
   
+    .logo-top {
+      aspect-ratio: 1.5;
+      object-fit: scale-down;
+      object-position: left;
+      width: 60px;
+      align-self: start;
+      z-index: 2;
+      padding: 10px;
+      position: absolute; /* Use absolute positioning */
+    top: 10px; /* Adjust the top position as needed */
+    left: 50px; /* Adjust the left position as needed */
+    z-index: 2;
+    }
+
+    .logo-right {
+      aspect-ratio: 1.5;
+      object-fit: scale-down;
+      object-position: right;
+      width: 56px;
+      align-self: end;
+      z-index: 2;
+      padding: 10px;
+      position: absolute; /* Use absolute positioning */
+    top: 10px; /* Adjust the top position as needed */
+    right: 50px; /* Adjust the left position as needed */
+    z-index: 2;
+    }
+
     .background-image {
       position: absolute;
       inset: 0;
@@ -41,14 +68,7 @@
       background-attachment: fixed;
       object-fit: cover;
       object-position: center;
-    }
-  
-    .logo-top {
-      aspect-ratio: 1;
-      object-fit: contain;
-      object-position: center;
-      width: 60px;
-      align-self: start;
+      z-index: 0;
     }
   
     .content-wrapper {
@@ -64,17 +84,10 @@
     width: fit-content;
     justify-content: center;
     align-items: center;
-    
 
     }
   
-    .logo-right {
-      aspect-ratio: 1;
-      object-fit: contain;
-      object-position: center;
-      width: 56px;
-      align-self: end;
-    }
+
   
     .content-container {
       border-radius: 92px;
@@ -253,13 +266,13 @@
         class="logo-top"
         alt="Top logo"
       />
-      <div class="content-wrapper">
-        <img
+      <img
           loading="lazy"
           src="https://cdn.builder.io/api/v1/image/assets/TEMP/08a7a5c0628cba570ee8f319e64b9f1e6646a593ddcb3b65e822dd1b9731e5c0?placeholderIfAbsent=true&apiKey=112d4d886e2a4db6818d16e1c07ef352"
           class="logo-right"
           alt="Right logo"
-        />
+      />
+      <div class="content-wrapper">
         <div class="content-container">
           <div class="content-inner">
             <h1 class="title">
