@@ -3,7 +3,7 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 
 
-service = Service(r"C:\Users\linag\Downloads\chromedriver-win64\chromedriver-win64\chromedriver.exe")
+service = Service("Assets/chromedriver.exe")
 
 driver = webdriver.Chrome(service=service)
 
