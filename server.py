@@ -1,11 +1,15 @@
-from flask import Flask, jsonify, request, render_template
+from flask import Flask, jsonify, request, render_template, redirect, url_for
 from flask_cors import CORS
+import os
+import random
+import time
 from generator import get_parsed_reponse
 
 server = Flask(__name__)
 CORS(server)
 
-url = ""
+# Dictionary to store processed results
+processing_results = {}
 
 @server.route('/')
 def home():
@@ -13,39 +17,50 @@ def home():
 
 @server.route('/loading')
 def loading():
+    # The loading page will just show a message and keep polling for the result
     return render_template('loading.html')
 
 @server.route('/get_url', methods=['POST'])
 def handle_json():
-    global url
     try:
-        # Get the JSON data from the request
         data = request.get_json()
+        url = data.get('url')
 
-        # Print the full data to check if it's being received correctly
-        print("Received data:", data)
-
-        url = data.get('url')  # Extract URL
-        print("Received URL:", url)  # Print the extracted URL
-
-        print(get_parsed_reponse(url))
-
-        if url:
-            return jsonify({"message": "URL received successfully!"}), 200
-        else:
+        if not url:
             return jsonify({"message": "No URL provided!"}), 400
+
+        # Generate a unique request ID
+        request_id = str(random.randint(1000, 9999))  # Simple unique ID
+
+        # Start processing the URL in a separate thread
+        def process_url():
+            # Simulate processing (e.g., waiting for `get_parsed_reponse`)
+            time.sleep(5)  # Simulate processing delay
+            parsed_response = get_parsed_reponse(url)
+            print(parsed_response)
+            # Store the response in the dictionary
+            processing_results[request_id] = parsed_response
+
+        # Start the URL processing in a background thread
+        from threading import Thread
+        thread = Thread(target=process_url)
+        thread.start()
+
+        # Return the request_id to the client to poll for the result
+        return jsonify({"message": "URL received successfully!", "request_id": request_id}), 200
+
     except Exception as e:
         print("Error handling request:", e)
         return jsonify({"message": "Error processing request!"}), 500
 
-@server.route('/generate_ideas')
-def generate_ideas():
-    # Ensure the URL is set before proceeding
-    if not url:
-        return jsonify({"message": "No URL set!"}), 400
-
-    parsed_reponse = get_parsed_reponse(url)
-    return render_template('home.html', json_packet={"message": parsed_reponse})
+@server.route('/get_processed_result/<request_id>', methods=['GET'])
+def get_processed_result(request_id):
+    # Check if the result is ready for the given request_id
+    result = processing_results.get(request_id)
+    if result:
+        return jsonify({"message": result}), 200
+    else:
+        return jsonify({"message": "Still processing..."}), 202
 
 if __name__ == "__main__":
     server.run(debug=True, host='0.0.0.0', port=5000)
