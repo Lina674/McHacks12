@@ -34,8 +34,8 @@ def get_title_prizes_companies(url):
     return (title, prize_titles, companies_text, image_src)
 
 
-t,p,c,i = get_title_prizes_companies("https://mchacks-12.devpost.com/?ref_feature=challenge&ref_medium=discover")
-print(t,c,p,i)
+# t,p,c,i = get_title_prizes_companies("https://mchacks-12.devpost.com/?ref_feature=challenge&ref_medium=discover")
+# print(t,c,p,i)
 
 # driver.get("https://mcgill-physics-hackathon-2023.devpost.com/")
 # driver.get("https://mchacks-12.devpost.com/?ref_feature=challenge&ref_medium=discover")
