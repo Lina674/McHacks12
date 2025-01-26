@@ -434,6 +434,7 @@
                       <div class="idea-card">
                           <h2 class="idea-title"></h2>
                           <div class="idea-description"></div>
+                          <!--
                           <div class="sponsor-container">
                               <span>These sponsors will love this:</span>
                               <ul class="sponsor-items"></ul>
@@ -442,6 +443,7 @@
                               <span>Compatible with prizes:</span>
                               <ul class="prize-items"></ul>
                           </div>
+                        -->
                       </div>
                   </template>
               </div>
@@ -453,68 +455,54 @@
   </div>
 
   <script>
-    const ideaData = [
-        {
-            title: "Hackathon Idea Generator",
-            description: "A gerasfklasjfopasfjaksfowjf;lw afoawjgl;awkg;awljgl;awkgl;aw jgl;awgopawjgopawjgoawgoakw;g lkawld;kawokawdkawokd",
-            sponsors: ["NordVPN", "GumLoop"],
-            prizes: ["Chaotic Evil", "Best Design"]
-        },
-        {
-            title: "Weather App",
-            description: "No fucking way a weather app",
-            sponsors: ["NordVPN", "GumLoop"],
-            prizes: ["Chaotic Evil", "Best Design"]
-        },
-        {
-            title: "Hackathon Idea Generator",
-            description: "A gerasfklasjfopasfjaksfowjf;lw afoawjgl;awkg;awljgl;awkgl;aw jgl;awgopawjgopawjgoawgoakw;g lkawld;kawokawdkawokd",
-            sponsors: ["NordVPN", "GumLoop"],
-            prizes: ["Chaotic Evil", "Best Design"]
-        },
-        {
-            title: "Hackathon Idea Generator",
-            description: "A gerasfklasjfopasfjaksfowjf;lw afoawjgl;awkg;awljgl;awkgl;aw jgl;awgopawjgopawjgoawgoakw;g lkawld;kawokawdkawokd",
-            sponsors: ["NordVPN", "GumLoop"],
-            prizes: ["Chaotic Evil", "Best Design"]
-        },
-        {
-            title: "Hackathon Idea Generator",
-            description: "A gerasfklasjfopasfjaksfowjf;lw afoawjgl;awkg;awljgl;awkgl;aw jgl;awgopawjgopawjgoawgoakw;g lkawld;kawokawdkawokd",
-            sponsors: ["NordVPN", "GumLoop"],
-            prizes: ["Chaotic Evil", "Best Design"]
-        }
-        
-    ];
+    
+    fetch('/get_processed_result/{{ request_id }}') // Adjust the URL as per your routing in Flask
+      .then(response => response.json())
+      .then(data => {
+      const ideaData = data.result.ideas_list;  // Directly extract the idea data from the response
 
     const ideasGrid = document.querySelector('.ideas-grid');
     const template = document.querySelector('#idea-card-template');
-
+  
     ideaData.forEach(idea => {
-        const clone = template.content.cloneNode(true);
-        
-        clone.querySelector('.idea-title').textContent = idea.title;
-        clone.querySelector('.idea-description').textContent = idea.description;
-        
-        const sponsorList = clone.querySelector('.sponsor-items');
-        idea.sponsors.forEach(sponsor => {
+      const clone = template.content.cloneNode(true);
+  
+      // Loop over each key-value pair in the idea object
+      for (const [key, value] of Object.entries(idea)) {
+        // Create a new div for each key-value pair
+        const itemWrapper = document.createElement('div');
+        itemWrapper.classList.add('idea-item');
+  
+        // Create the label for the key
+        const label = document.createElement('strong');
+        label.textContent = `${key}: `;
+        itemWrapper.appendChild(label);
+  
+        // Create the content for the value
+        const content = document.createElement('span');
+        if (Array.isArray(value)) {
+          // If the value is an array (e.g., sponsors or prizes), display each item in a list
+          const list = document.createElement('ul');
+          value.forEach(item => {
             const li = document.createElement('li');
-            li.textContent = `• ${sponsor}`;
-            sponsorList.appendChild(li);
-        });
-        
-        const prizeList = clone.querySelector('.prize-items');
-        idea.prizes.forEach(prize => {
-            const li = document.createElement('li');
-            li.textContent = `• ${prize}`;
-            prizeList.appendChild(li);
-        });
-        
-        ideasGrid.appendChild(clone);
+            li.textContent = `• ${item}`;
+            list.appendChild(li);
+          });
+          content.appendChild(list);
+        } else {
+          // Otherwise, display the value as plain text
+          content.textContent = value;
+        }
+  
+        itemWrapper.appendChild(content);
+        clone.querySelector('.idea-description').appendChild(itemWrapper);
+      }
+  
+      ideasGrid.appendChild(clone);
     });
-
+  
+    // Close button handler
     document.querySelector('.header-close').addEventListener('click', function() {
-      /* ADD SCRIPT HERE TO RETURN TO HOME PAGE*/
       window.location.href = "/";
     });
-</script>
+  </script>
