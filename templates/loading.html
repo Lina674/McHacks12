@@ -1,41 +1,3 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Loading</title>
-    <link rel="stylesheet" href="../static/loading.css">
-</head>
-<body>
-    <div class="loading-animation">
-        <div class="spinner"></div>
-        <p>Loading...</p>
-    </div>
-
-    <script>
-        // Get the request ID from localStorage
-        const requestId = localStorage.getItem("request_id");
-
-        // Poll the server every 2 seconds to check if the result is ready
-        const pollInterval = setInterval(() => {
-            if (requestId) {
-                fetch(`/get_processed_result/${requestId}`)
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.message === "Result available") {
-                            clearInterval(pollInterval); // Stop polling
-                            window.location.href = `/result/${requestId}`; // Redirect to result page
-                        }
-                    })
-                    .catch(error => {
-                        console.error("Error polling for result:", error);
-                    });
-            }
-        }, 2000); // Poll every 2 seconds
-    </script>
-</body>
-</html> -->
-
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 
 <style>
@@ -215,13 +177,13 @@
         }
     }, 2000); // Poll every 2 seconds
 </script>
-<link type="image/png" sizes="16x16" rel="icon" href="../assets/icons8-favicon-16.png">
+<link type="image/png" sizes="16x16" rel="icon" href="../assets/Favicon.png">
 
   <div class="loading-container">
     <div class="loading-wrapper">
       <img
         loading="lazy"
-        src="https://cdn.builder.io/api/v1/image/assets/TEMP/3a5e7bf83587e2b5acade1d4250fb1dce08546c51f95ec1c66332742590fb591?placeholderIfAbsent=true&apiKey=112d4d886e2a4db6818d16e1c07ef352"
+        src="https://cdn.builder.io/api/v1/image/assets%2F112d4d886e2a4db6818d16e1c07ef352%2F7e5f425182e3472a869e28a8c9274d56"
         class="background-image"
         alt=""
       />
@@ -254,7 +216,7 @@
               class="loading-indicator"
               alt="Loading animation"
             /> -->
-            <img src="../assets/Animation - 1737856640387 (1).gif" alt="Loading animation" class="loading-indicator" loading="lazy">
+            <img src="../assets/a.gif" alt="Loading animation" class="loading-indicator" loading="lazy">
 
           </div>
         </div>

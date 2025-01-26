@@ -4,7 +4,8 @@ import random
 from generator import get_parsed_reponse  # Assuming this function returns the parsed response
 
 server = Flask(__name__)
-CORS(server)
+# CORS(server)
+CORS(server, resources={r"/*": {"origins": "*"}})
 
 # Dictionary to store processed results
 processing_results = {}

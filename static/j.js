@@ -1,12 +1,13 @@
 document.addEventListener("DOMContentLoaded", () => {
     const submitBtn = document.getElementById("submitBtn");
     const urlInput = document.getElementById("urlInput");
-    
+    const backendUrl = window.location.hostname === 'localhost' ? 'http://127.0.0.1:5000' : 'https://whatthehack.vercel.app';
+    // const backendUrl = 'https://whatthehack.vercel.app';
     submitBtn.addEventListener("click", () => {
         const url = urlInput.value;
         if (url) {
             // Send URL to the server via a POST request
-            fetch('http://127.0.0.1:5000/get_url', {
+            fetch(`${backendUrl}/get_url`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -35,7 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
     function checkProcessingStatus() {
         const requestId = localStorage.getItem('request_id');
         if (requestId) {
-            fetch(`http://127.0.0.1:5000/get_processed_result/${requestId}`)
+            fetch(`${backendUrl}/get_processed_result/${requestId}`)
             .then(response => response.json())
             .then(data => {
                 console.log("Polling response:", data);  // For debugging
