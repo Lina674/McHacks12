@@ -6,7 +6,8 @@ import time
 from generator import get_parsed_reponse
 
 server = Flask(__name__)
-CORS(server)
+# CORS(server)
+CORS(server, resources={r"/*": {"origins": "*"}})
 
 # Dictionary to store processed results
 processing_results = {}
