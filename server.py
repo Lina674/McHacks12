@@ -67,7 +67,7 @@ def get_processed_result(request_id):
     # Check if the result is ready for the given request_id
     result = processing_results.get(request_id)
     if result:
-        return jsonify({"message": "Result available"}), 200
+        return jsonify({"message": "Result available", "result" : result}), 200
     else:
         return jsonify({"message": "Still processing..."}), 202
     
