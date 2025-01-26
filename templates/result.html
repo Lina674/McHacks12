@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -10,7 +10,6 @@
         {% if result %}
             <h2>{{ result.hackathon_title }}</h2>
             
-            <!-- Loop through ideas list -->
             <ul>
                 {% for idea in result.ideas_list %}
                     <li>
@@ -22,7 +21,6 @@
             </ul>
 
 
-            <!-- Display the image -->
             <img src="{{ result.image_src }}" alt="Hackathon Image" style="max-width: 100%; height: auto;">
             
         {% else %}
@@ -31,4 +29,303 @@
     </div>
     <a href="/">Back to Home</a>
 </body>
-</html>
+</html> -->
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loading</title>
+    <link rel="stylesheet" href="../static/loading.css">
+</head>
+<body>
+    <div class="loading-animation">
+        <div class="spinner"></div>
+        <p>Loading...</p>
+    </div>
+
+    <script>
+        // Get the request ID from localStorage
+        const requestId = localStorage.getItem("request_id");
+
+        // Poll the server every 2 seconds to check if the result is ready
+        const pollInterval = setInterval(() => {
+            if (requestId) {
+                fetch(`/get_processed_result/${requestId}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.message === "Result available") {
+                            clearInterval(pollInterval); // Stop polling
+                            window.location.href = `/result/${requestId}`; // Redirect to result page
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Error polling for result:", error);
+                    });
+            }
+        }, 2000); // Poll every 2 seconds
+    </script>
+</body>
+</html> -->
+
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+    /* fixed white bg*/
+    html, body {
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */
+    box-sizing: border-box; /* Ensure consistent box-sizing */
+    width: 100%; /* Ensure the body spans the full width */
+    height: 100%; /* Ensure the body spans the full height */
+    overflow: hidden; /* Prevent horizontal scrolling */
+    }
+
+    .welcome-container {
+      background-color: rgba(0, 0, 0, 1);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      font-family: JetBrains Mono, -apple-system, Roboto, Helvetica, sans-serif;
+      font-weight: 500;
+      justify-content: center;
+      align-items: center;
+
+    }
+  
+    .main-wrapper {
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      height: 100vh; /* Use viewport height */
+    width: 100vw; /* Use viewport width */
+    flex-wrap: wrap;
+    justify-content: center;
+      align-items: center;
+    }
+  
+    .logo-top {
+    aspect-ratio: 1.5;
+    object-fit: scale-down;
+    object-position: left;
+    width: 5.6vw; /* Use viewport width for size */
+    position: absolute; /* Use absolute positioning */
+    top: 1vh; /* Adjust the top position as needed */
+    left: 1vw; /* Adjust the left position as needed */
+    z-index: 2;
+    padding: 1vh; /* Use viewport units for padding */
+    transform: scale(0.8);
+  }
+
+  .logo-right {
+    aspect-ratio: 1.5;
+    object-fit: scale-down;
+    object-position: right;
+    width: 5.6vw; /* Use viewport width for size */
+    position: absolute; /* Use absolute positioning */
+    top: 1vh; /* Adjust the top position as needed */
+    right: 1vw; /* Adjust the right position as needed */
+    z-index: 2;
+    padding: 1vh; /* Use viewport units for padding */
+    transform: scale(0.8);
+  }
+
+  .background-image {
+    position: absolute;
+    inset: 0;
+    height: 100%;
+    width: 100%;
+    background-attachment: fixed;
+    object-fit: cover;
+    object-position: center;
+    z-index: 0;
+  }
+  
+    .content-wrapper {
+        transform: scale(0.6); /* Scale the content to 80% */
+        transform-origin: middle; /* Set scaling origin */
+        width: 125%; /* Adjust to compensate for scaling */
+        height: 125%; /* Adjust to compensate for scaling */
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        flex-basis: 0;
+        width: fit-content;
+        justify-content: left;
+        align-items: top;
+        gap: 5vh;
+    }
+
+    .banner-container {
+        display: flex;
+        flex-direction: column;
+        border-radius: 24px;
+        align-self: center;
+        position: relative;
+        min-height: 75px;
+        align-items: center;
+        padding: 0 80px;
+    }
+  
+    .background-hackathon-image {
+        position: absolute;
+        inset: 0;
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+        object-position: center;
+    }
+
+    .foreground-image {
+        aspect-ratio: 7.14;
+        object-fit: contain;
+        object-position: center;
+        border-radius: 24px;
+        max-height: 100%;
+        max-width: 100%;
+        z-index: 2;
+    }
+  
+    .content-container {
+      border-radius: 92px;
+      background-color: rgba(17, 17, 27, 0.66);
+      display: flex;
+      width: 100%;
+      max-width: 1243px;
+      flex-direction: column;
+      padding: 270px 80px;
+    }
+  
+    .content-inner {
+      display: flex;
+      margin-bottom: -54px;
+      flex-direction: column;
+    }
+
+  
+    .title {
+      color: rgba(255, 255, 255, 1);
+      align-self: start;
+      font: 600 64px Spline Sans Mono, -apple-system, Roboto, Helvetica, sans-serif;
+      padding: 0; /* Ensure no padding */
+        margin: 0; /* Ensure no margin */
+    }
+  
+    .title-highlight {
+      font-family: JetBrains Mono, -apple-system, Roboto, Helvetica, sans-serif;
+      font-weight: 500;
+      color: rgba(203, 166, 247, 1);
+    }
+  
+    .title-punctuation {
+      font-family: JetBrains Mono, -apple-system, Roboto, Helvetica, sans-serif;
+      font-weight: 500;
+      font-size: 96px;
+      color: rgba(249, 226, 146, 1);
+    }
+  
+    .description {
+      color: rgba(143, 149, 174, 1);
+      font-size: 24px;
+    }
+  
+    @media (max-width: 991px) {
+      .main-wrapper {
+        max-width: 100%;
+        padding: 0 20px 100px;
+      }
+  
+      .content-wrapper {
+        max-width: 100%;
+      }
+  
+      .content-container {
+        max-width: 100%;
+        padding: 100px 20px;
+      }
+
+      .banner-container {
+        max-width: 100%;
+        padding: 0 20px;
+      }
+  
+      .content-inner {
+        max-width: 100%;
+        margin-bottom: 10px;
+      }
+  
+      .title {
+        max-width: 100%;
+        font-size: 40px;
+      }
+  
+      .description {
+        max-width: 100%;
+      }
+  
+    }
+  
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      border: 0;
+    }
+  </style>
+    <script src="../static/j.js"></script>
+
+  <div class="welcome-container">
+    <div class="main-wrapper">
+      <img
+        loading="lazy"
+        src="https://cdn.builder.io/api/v1/image/assets/TEMP/3a5e7bf83587e2b5acade1d4250fb1dce08546c51f95ec1c66332742590fb591?placeholderIfAbsent=true&apiKey=112d4d886e2a4db6818d16e1c07ef352"
+        class="background-image"
+        alt=""
+      />
+      <img
+        loading="lazy"
+        src="https://cdn.builder.io/api/v1/image/assets/TEMP/03c0d03340a0337a536b543816892aedfb18a0e3f17cc9297e6d7514d0a9e9c7?placeholderIfAbsent=true&apiKey=112d4d886e2a4db6818d16e1c07ef352"
+        class="logo-top"
+        alt="Top logo"
+      />
+      <img
+          loading="lazy"
+          src="https://cdn.builder.io/api/v1/image/assets/TEMP/08a7a5c0628cba570ee8f319e64b9f1e6646a593ddcb3b65e822dd1b9731e5c0?placeholderIfAbsent=true&apiKey=112d4d886e2a4db6818d16e1c07ef352"
+          class="logo-right"
+          alt="Right logo"
+      />
+      <div class="content-wrapper">
+        <div class="banner-container">
+            <img
+              loading="lazy"
+              src="https://d112y698adiu2z.cloudfront.net/photos/production/challenge_background_images/003/178/167/datas/original.png";"
+              alt=""
+              class="background-hackathon-image";
+            />
+            <img
+              loading="lazy"
+              src="https://d112y698adiu2z.cloudfront.net/photos/production/challenge_photos/003/211/198/datas/full_width.png";
+              class="foreground-image";
+            />
+          </div>
+        <div class="content-container">
+          <div class="content-inner">
+            <h1 class="title">
+              <span class="title-highlight">WhatTheHack</span>
+              <span class="title-punctuation">?</span>
+            </h1>
+            <p class="description">
+              An idea generator for Devpost hackathons based on sponsors, prize
+              categories, and more!
+            </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
