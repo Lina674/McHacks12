@@ -1,12 +1,13 @@
 document.addEventListener("DOMContentLoaded", () => {
     const submitBtn = document.getElementById("submitBtn");
     const urlInput = document.getElementById("urlInput");
-    
+    const backendUrl = window.location.hostname === 'localhost' ? 'http://127.0.0.1:5000' : 'https://whatthehack-9gia36qc9-linas-projects-573d855f.vercel.app/?';
+
     submitBtn.addEventListener("click", () => {
         const url = urlInput.value;
         if (url) {
             // Send URL to the server via a POST request
-            fetch('http://127.0.0.1:5000/get_url', {
+            fetch(`${backendUrl}/get_url`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
