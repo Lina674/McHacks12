@@ -1,4 +1,14 @@
 <style>
+    /* fixed white bg*/
+    html, body {
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */
+    box-sizing: border-box; /* Ensure consistent box-sizing */
+    width: 100%; /* Ensure the body spans the full width */
+    height: 100%; /* Ensure the body spans the full height */
+    overflow: hidden; /* Prevent horizontal scrolling */
+    }
+
     .welcome-container {
       background-color: rgba(0, 0, 0, 1);
       display: flex;
@@ -6,6 +16,8 @@
       overflow: hidden;
       font-family: JetBrains Mono, sans-serif;
       font-weight: 500;
+      justify-content: center;
+      align-items: center;
     }
   
     .main-wrapper {
@@ -16,41 +28,66 @@
       width: 100%;
       flex-wrap: wrap;
       padding: 29px 38px 114px;
+      justify-content: center;
+      align-items: center;
     }
   
+    .logo-top {
+      aspect-ratio: 1.5;
+      object-fit: scale-down;
+      object-position: left;
+      width: 60px;
+      align-self: start;
+      z-index: 2;
+      padding: 10px;
+      position: absolute; /* Use absolute positioning */
+    top: 10px; /* Adjust the top position as needed */
+    left: 50px; /* Adjust the left position as needed */
+    z-index: 2;
+    }
+
+    .logo-right {
+      aspect-ratio: 1.5;
+      object-fit: scale-down;
+      object-position: right;
+      width: 56px;
+      align-self: end;
+      z-index: 2;
+      padding: 10px;
+      position: absolute; /* Use absolute positioning */
+    top: 10px; /* Adjust the top position as needed */
+    right: 50px; /* Adjust the left position as needed */
+    z-index: 2;
+    }
+
     .background-image {
       position: absolute;
       inset: 0;
       height: 100%;
       width: 100%;
+      background-attachment: fixed;
       object-fit: cover;
       object-position: center;
-    }
-  
-    .logo-top {
-      aspect-ratio: 1;
-      object-fit: contain;
-      object-position: center;
-      width: 60px;
-      align-self: start;
+      z-index: 0;
     }
   
     .content-wrapper {
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      flex-grow: 1;
-      flex-basis: 0;
-      width: fit-content;
+    transform: scale(0.6); /* Scale the content to 80% */
+    transform-origin: top; /* Set scaling origin */
+    width: 125%; /* Adjust to compensate for scaling */
+    height: 125%; /* Adjust to compensate for scaling */
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    flex-basis: 0;
+    width: fit-content;
+    justify-content: center;
+    align-items: center;
+
     }
   
-    .logo-right {
-      aspect-ratio: 1;
-      object-fit: contain;
-      object-position: center;
-      width: 56px;
-      align-self: end;
-    }
+
   
     .content-container {
       border-radius: 92px;
@@ -61,6 +98,7 @@
       max-width: 1243px;
       flex-direction: column;
       justify-content: center;
+      align-items: center;
       padding: 270px 80px;
     }
   
@@ -228,13 +266,13 @@
         class="logo-top"
         alt="Top logo"
       />
-      <div class="content-wrapper">
-        <img
+      <img
           loading="lazy"
           src="https://cdn.builder.io/api/v1/image/assets/TEMP/08a7a5c0628cba570ee8f319e64b9f1e6646a593ddcb3b65e822dd1b9731e5c0?placeholderIfAbsent=true&apiKey=112d4d886e2a4db6818d16e1c07ef352"
           class="logo-right"
           alt="Right logo"
-        />
+      />
+      <div class="content-wrapper">
         <div class="content-container">
           <div class="content-inner">
             <h1 class="title">
