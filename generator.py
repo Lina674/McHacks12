@@ -26,7 +26,8 @@ chat_session = model.start_chat(
 def get_parsed_reponse(url : str) -> str :
     
     title,companies,prizes, image_link = get_title_prizes_companies(url)
-
+    print(f'companies : {companies}')
+    print(f'prizes : {prizes}')
     prompt = f"""
 
     Generate a table containing a generous amount of new, diverse and detailed winning hackathon ideas. 
@@ -45,6 +46,8 @@ def get_parsed_reponse(url : str) -> str :
     response = [idea.split("|") for idea in response]
     response = [[element.strip().strip("*") for element in idea if element != '' ] for idea in response]
     response.pop(1)
+
+    print(response)
 
     keys = response[0]
     response = response[1:]
