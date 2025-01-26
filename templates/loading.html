@@ -32,6 +32,9 @@
     flex-wrap: wrap;
     justify-content: center;
       align-items: center;
+      background:transparent;
+      border: none;
+      outline:none;
     }
   
     .background-image {
@@ -42,45 +45,23 @@
       object-fit: cover;
       object-position: center;
     }
-  
-    .logo-top {
-    aspect-ratio: 1.5;
-    object-fit: scale-down;
-    object-position: left;
-    width: 5.6vw; /* Use viewport width for size */
-    position: absolute; /* Use absolute positioning */
-    top: 1vh; /* Adjust the top position as needed */
-    left: 1vw; /* Adjust the left position as needed */
-    z-index: 2;
-    padding: 1vh; /* Use viewport units for padding */
-    transform: scale(0.8);
-  }
 
-  .logo-right {
-    aspect-ratio: 1.5;
-    object-fit: scale-down;
-    object-position: right;
-    width: 5.6vw; /* Use viewport width for size */
-    position: absolute; /* Use absolute positioning */
-    top: 1vh; /* Adjust the top position as needed */
-    right: 1vw; /* Adjust the right position as needed */
-    z-index: 2;
-    padding: 1vh; /* Use viewport units for padding */
-    transform: scale(0.8);
+    body.light-mode .background-image {
+    content: url('../static/assets/Code-png-light.png');
   }
   
     .content-container {
         transform: scale(0.6); /* Scale the content to 80% */
-    transform-origin: middle; /* Set scaling origin */
-    width: 125%; /* Adjust to compensate for scaling */
-    height: 125%; /* Adjust to compensate for scaling */
-    position: relative;
-    display: flex;
-    flex-direction: column;
+      transform-origin: middle; /* Set scaling origin */
+      width: 125%; /* Adjust to compensate for scaling */
+      height: 125%; /* Adjust to compensate for scaling */
+      position: relative;
+      display: flex;
+      flex-direction: column;
 
-    width: fit-content;
-    justify-content: center;
-    align-items: center;
+      width: fit-content;
+      justify-content: center;
+      align-items: center;
     }
 
     .loading-box {
@@ -93,6 +74,10 @@
       align-items: center;
       justify-content: center;
       padding: 291px 80px;
+    }
+
+    body.light-mode .loading-box {
+      background-color: rgba(239, 241, 245, 0.66);
     }
   
     .loading-content {
@@ -113,6 +98,10 @@
       font-size: 24px;
       margin-top: 14px;
     }
+
+    body.light-mode .loading-text {
+      color: rgba(119, 124, 147, 1);
+    };
   
     .loading-indicator {
       /* aspect-ratio: 15; */
@@ -187,39 +176,22 @@
         class="background-image"
         alt=""
       />
-      <!-- <img
-        loading="lazy"
-        src="https://cdn.builder.io/api/v1/image/assets/TEMP/03c0d03340a0337a536b543816892aedfb18a0e3f17cc9297e6d7514d0a9e9c7?placeholderIfAbsent=true&apiKey=112d4d886e2a4db6818d16e1c07ef352"
-        class="logo-top"
-        alt="Top logo"
-      />
-      <img
-          loading="lazy"
-          src="https://cdn.builder.io/api/v1/image/assets/TEMP/08a7a5c0628cba570ee8f319e64b9f1e6646a593ddcb3b65e822dd1b9731e5c0?placeholderIfAbsent=true&apiKey=112d4d886e2a4db6818d16e1c07ef352"
-          class="logo-right"
-          alt="Right logo"
-      /> -->
       <div class="content-container">
-        <!-- <img
-          loading="lazy"
-          src="https://cdn.builder.io/api/v1/image/assets/TEMP/bb7ad25fc3f1d356c750f7ce8841f6b01ff3833c396be14a3c8312d19450d306?placeholderIfAbsent=true&apiKey=112d4d886e2a4db6818d16e1c07ef352"
-          class="secondary-logo"
-          alt="Secondary logo"
-        /> -->
         <div class="loading-box">
           <div class="loading-content">
             <div class="loading-symbol">?</div>
             <div class="loading-text">Generating...</div>
-            <!-- <img
-              loading="lazy"
-              src="https://cdn.builder.io/api/v1/image/assets/TEMP/10679795fc99981f7323d7a2d612b0e4a3e867d0d5e32320e701215190b6833c?placeholderIfAbsent=true&apiKey=112d4d886e2a4db6818d16e1c07ef352"
-              class="loading-indicator"
-              alt="Loading animation"
-            /> -->
             <img src="../static/assets/a.gif" alt="Loading animation" class="loading-indicator" loading="lazy">
-
           </div>
         </div>
       </div>
     </div>
   </div>
+
+  <script>
+    const body = document.body;
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'light') {
+      body.classList.add('light-mode');
+    }
+  </script>

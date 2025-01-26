@@ -107,16 +107,29 @@
     }
   
     .logo-top {
+      background-color: transparent;
+      outline: transparent;
+      border: none;
     aspect-ratio: 1.5;
     object-fit: scale-down;
     object-position: left;
     width: 5.6vw; /* Use viewport width for size */
-    position: fixed; /* Use absolute positioning */
+    position: absolute; /* Use absolute positioning */
     top: 1vh; /* Adjust the top position as needed */
     left: 1vw; /* Adjust the left position as needed */
     z-index: 2;
     padding: 1vh; /* Use viewport units for padding */
     transform: scale(0.8);
+    transform-origin: top left;
+    content: url('https://cdn.builder.io/api/v1/image/assets/TEMP/03c0d03340a0337a536b543816892aedfb18a0e3f17cc9297e6d7514d0a9e9c7?placeholderIfAbsent=true&apiKey=112d4d886e2a4db6818d16e1c07ef352');
+  }
+
+    /*light mode image change*/
+    body.light-mode .logo-top {
+    content: url('../static/assets/sun.png');
+}
+  body.light-mode .background-image {
+    content: url('../static/assets/Code-png-light.png');
   }
 
   .logo-right {
@@ -141,6 +154,7 @@
     object-fit: cover;
     object-position: center;
     z-index: 0;
+    content: url('https://cdn.builder.io/api/v1/image/assets%2F112d4d886e2a4db6818d16e1c07ef352%2F7e5f425182e3472a869e28a8c9274d56');
   }
   
     .content-wrapper {
@@ -200,6 +214,9 @@
       padding: 2vh 80px 5vh 80px;
       align-items: flex-start;
     }
+    body.light-mode .content-container {
+      background-color: rgba(239, 241, 245, 0.66);
+    }
   
     .content-inner {
       display: flex;
@@ -215,6 +232,10 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
+        body.light-mode .ide-wrapper {
+          background-color: rgba(227, 229, 237, 1);
+        }
+
         .header-container {
             display: flex;
             justify-content: space-between;
@@ -224,10 +245,19 @@
             margin-bottom: 24px;
         }
 
+        body.light-mode .header-container {
+          border-bottom: 1px solid rgba(203, 166, 247, 1);
+        }
+
         .header-title {
             color: #a8b2d1;
             font: 16px monospace;
         }
+
+        body.light-mode .header-title {
+          color: rgba(76, 79, 105, 1);
+        }
+
 
         .header-close {
             color: #a8b2d1;
@@ -239,13 +269,8 @@
             transition: color 0.3s ease;
         }
 
-        .header-close:hover {
-            color: #ffffff;
-        }
-
-        .header-close:focus {
-            outline: 2px solid #ffffff;
-            outline-offset: 2px;
+        body.light-mode .header-close {
+          color: rgba(203, 166, 247, 1);
         }
 
         .ideas-grid {
@@ -261,6 +286,11 @@
             color: #a8b2d1;
             font-family: monospace;
             transition: transform 0.3s ease;
+        }
+
+        body.light-mode .idea-card {
+          background-color: rgba(227, 230, 235, 1);
+          color:rgba(76, 79, 128, 1);
         }
 
         .idea-card:hover {
@@ -391,16 +421,16 @@
     <div class="main-wrapper">
       <img
         loading="lazy"
-        src="https://cdn.builder.io/api/v1/image/assets%2F112d4d886e2a4db6818d16e1c07ef352%2F7e5f425182e3472a869e28a8c9274d56"
         class="background-image"
         alt=""
       />
-      <img
-        loading="lazy"
-        src="https://cdn.builder.io/api/v1/image/assets/TEMP/03c0d03340a0337a536b543816892aedfb18a0e3f17cc9297e6d7514d0a9e9c7?placeholderIfAbsent=true&apiKey=112d4d886e2a4db6818d16e1c07ef352"
-        class="logo-top"
-        alt="Top logo"
-      />
+      <button class="logo-top">
+        <img
+          loading="lazy"
+          class="logo-top"
+          alt="Top logo"
+        />
+        </button>
       <a href="https://github.com/Lina674/McHacks12" target="_blank" rel="noopener noreferrer">
         <img
             loading="lazy"
