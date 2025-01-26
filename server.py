@@ -20,12 +20,22 @@ def loading():
     # The loading page will just show a message and keep polling for the result
     return render_template('loading.html')
 
+@server.route('/result/<request_id>')
+def result(request_id):
+    # Retrieve the processed result for the specific request_id
+    result = processing_results.get(request_id)
+    if result:
+        # Pass the result to the template
+        return render_template('result.html', result=result)
+    else:
+        # If no result found, redirect back to home
+        return redirect(url_for('home'))
+
 @server.route('/get_url', methods=['POST'])
 def handle_json():
     try:
         data = request.get_json()
         url = data.get('url')
-
         if not url:
             return jsonify({"message": "No URL provided!"}), 400
 
@@ -35,7 +45,6 @@ def handle_json():
         # Start processing the URL in a separate thread
         def process_url():
             # Simulate processing (e.g., waiting for `get_parsed_reponse`)
-            time.sleep(5)  # Simulate processing delay
             parsed_response = get_parsed_reponse(url)
             print(parsed_response)
             # Store the response in the dictionary
@@ -48,7 +57,6 @@ def handle_json():
 
         # Return the request_id to the client to poll for the result
         return jsonify({"message": "URL received successfully!", "request_id": request_id}), 200
-
     except Exception as e:
         print("Error handling request:", e)
         return jsonify({"message": "Error processing request!"}), 500
@@ -58,7 +66,7 @@ def get_processed_result(request_id):
     # Check if the result is ready for the given request_id
     result = processing_results.get(request_id)
     if result:
-        return jsonify({"message": result}), 200
+        return jsonify({"message": "Result available"}), 200
     else:
         return jsonify({"message": "Still processing..."}), 202
 
