@@ -1,8 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
     const submitBtn = document.getElementById("submitBtn");
     const urlInput = document.getElementById("urlInput");
-    const backendUrl = window.location.hostname === 'localhost' ? 'http://127.0.0.1:5000' : 'https://whatthehack.vercel.app/?';
-
+    // const backendUrl = window.location.hostname === 'localhost' ? 'http://127.0.0.1:5000' : 'https://whatthehack.vercel.app/?';
+    const backendUrl = 'https://whatthehack.vercel.app';
     submitBtn.addEventListener("click", () => {
         const url = urlInput.value;
         if (url) {
