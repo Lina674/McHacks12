@@ -8,7 +8,23 @@
     <h1>Processing Result</h1>
     <div id="result">
         {% if result %}
-            <pre>{{ result }}</pre>
+            <h2>{{ result.hackathon_title }}</h2>
+            
+            <!-- Loop through ideas list -->
+            <ul>
+                {% for idea in result.ideas_list %}
+                    <li>
+                        {% for key, value in idea.items() %}
+                            <p><strong>{{ key }}:</strong> {{ value }}</p>
+                        {% endfor %}
+                    </li>
+                {% endfor %}
+            </ul>
+
+
+            <!-- Display the image -->
+            <img src="{{ result.image_src }}" alt="Hackathon Image" style="max-width: 100%; height: auto;">
+            
         {% else %}
             <p>No result found.</p>
         {% endif %}
