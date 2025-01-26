@@ -13,7 +13,7 @@ processing_results = {}
 
 @server.route('/')
 def home():
-    return render_template('index.html')
+    return render_template('templates/home.html')
 
 @server.route('/loading')
 def loading():
@@ -69,6 +69,8 @@ def get_processed_result(request_id):
         return jsonify({"message": "Result available"}), 200
     else:
         return jsonify({"message": "Still processing..."}), 202
+    
+app = server
 
 if __name__ == "__main__":
-    server.run(debug=True, host='0.0.0.0', port=5000)
+    app.run(debug=True, host='0.0.0.0', port=5000)
