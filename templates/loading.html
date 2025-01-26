@@ -36,6 +36,8 @@
 </body>
 </html> -->
 
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
 <style>
 
     html, body {
@@ -48,26 +50,25 @@
     }
 
     .loading-container {
-      background-color: rgba(0, 0, 0, 1);
+        background-color: rgba(0, 0, 0, 1);
       display: flex;
       flex-direction: column;
       overflow: hidden;
-      font-family: JetBrains Mono, sans-serif;
+      font-family: JetBrains Mono, -apple-system, Roboto, Helvetica, sans-serif;
       font-weight: 500;
-      white-space: nowrap;
-      text-align: center;
+      justify-content: center;
+      align-items: center;
       
     }
   
     .loading-wrapper {
-      display: flex;
+        display: flex;
       flex-direction: column;
       position: relative;
-      min-height: 1024px;
-      width: 100%;
-      flex-wrap: wrap;
-      padding: 29px 38px 114px;
-      /* justify-content: center; */
+      height: 100vh; /* Use viewport height */
+    width: 100vw; /* Use viewport width */
+    flex-wrap: wrap;
+    justify-content: center;
       align-items: center;
     }
   
@@ -80,39 +81,50 @@
       object-position: center;
     }
   
-    .top-logo {
-      aspect-ratio: 1;
-      object-fit: contain;
-      object-position: center;
-      width: 60px;
-      align-self: start;
-    }
+    .logo-top {
+    aspect-ratio: 1.5;
+    object-fit: scale-down;
+    object-position: left;
+    width: 5.6vw; /* Use viewport width for size */
+    position: absolute; /* Use absolute positioning */
+    top: 1vh; /* Adjust the top position as needed */
+    left: 1vw; /* Adjust the left position as needed */
+    z-index: 2;
+    padding: 1vh; /* Use viewport units for padding */
+    transform: scale(0.8);
+  }
+
+  .logo-right {
+    aspect-ratio: 1.5;
+    object-fit: scale-down;
+    object-position: right;
+    width: 5.6vw; /* Use viewport width for size */
+    position: absolute; /* Use absolute positioning */
+    top: 1vh; /* Adjust the top position as needed */
+    right: 1vw; /* Adjust the right position as needed */
+    z-index: 2;
+    padding: 1vh; /* Use viewport units for padding */
+    transform: scale(0.8);
+  }
   
     .content-container {
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      flex-grow: 1;
-      flex-basis: 0;
-      width: fit-content;
-      align-items: center;
-        
-      
+        transform: scale(0.6); /* Scale the content to 80% */
+    transform-origin: middle; /* Set scaling origin */
+    width: 125%; /* Adjust to compensate for scaling */
+    height: 125%; /* Adjust to compensate for scaling */
+    position: relative;
+    display: flex;
+    flex-direction: column;
+
+    width: fit-content;
+    justify-content: center;
+    align-items: center;
     }
-  
-    /* .secondary-logo {
-      aspect-ratio: 1;
-      object-fit: contain;
-      object-position: center;
-      width: 56px;
-      align-self: end;
-    } */
-  
+
     .loading-box {
       border-radius: 92px;
       background-color: rgba(17, 17, 27, 0.66);
       display: flex;
-      margin-top: 26px;
       width: 100%;
       max-width: 1243px;
       flex-direction: column;
@@ -123,7 +135,6 @@
   
     .loading-content {
       display: flex;
-      margin-bottom: -63px;
       width: 336px;
       max-width: 100%;
       flex-direction: column;
@@ -214,9 +225,15 @@
       />
       <img
         loading="lazy"
-        src="https://cdn.builder.io/api/v1/image/assets/TEMP/0b4f80f643e2db3a87f768ca8bf1d9a5c4682a715552328d46ce39c7f24619d4?placeholderIfAbsent=true&apiKey=112d4d886e2a4db6818d16e1c07ef352"
-        class="top-logo"
+        src="https://cdn.builder.io/api/v1/image/assets/TEMP/03c0d03340a0337a536b543816892aedfb18a0e3f17cc9297e6d7514d0a9e9c7?placeholderIfAbsent=true&apiKey=112d4d886e2a4db6818d16e1c07ef352"
+        class="logo-top"
         alt="Top logo"
+      />
+      <img
+          loading="lazy"
+          src="https://cdn.builder.io/api/v1/image/assets/TEMP/08a7a5c0628cba570ee8f319e64b9f1e6646a593ddcb3b65e822dd1b9731e5c0?placeholderIfAbsent=true&apiKey=112d4d886e2a4db6818d16e1c07ef352"
+          class="logo-right"
+          alt="Right logo"
       />
       <div class="content-container">
         <!-- <img
