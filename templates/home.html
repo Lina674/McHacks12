@@ -18,62 +18,60 @@
       font-weight: 500;
       justify-content: center;
       align-items: center;
+
     }
   
     .main-wrapper {
       display: flex;
       flex-direction: column;
       position: relative;
-      min-height: 1024px;
-      width: 100%;
-      flex-wrap: wrap;
-      padding: 29px 38px 114px;
-      justify-content: center;
+      height: 100vh; /* Use viewport height */
+    width: 100vw; /* Use viewport width */
+    flex-wrap: wrap;
+    justify-content: center;
       align-items: center;
     }
   
     .logo-top {
-      aspect-ratio: 1.5;
-      object-fit: scale-down;
-      object-position: left;
-      width: 60px;
-      align-self: start;
-      z-index: 2;
-      padding: 10px;
-      position: absolute; /* Use absolute positioning */
-    top: 10px; /* Adjust the top position as needed */
-    left: 50px; /* Adjust the left position as needed */
+    aspect-ratio: 1.5;
+    object-fit: scale-down;
+    object-position: left;
+    width: 6vw; /* Use viewport width for size */
+    position: absolute; /* Use absolute positioning */
+    top: 1vh; /* Adjust the top position as needed */
+    left: 1vw; /* Adjust the left position as needed */
     z-index: 2;
-    }
+    padding: 1vh; /* Use viewport units for padding */
+    transform: scale(0.8);
+  }
 
-    .logo-right {
-      aspect-ratio: 1.5;
-      object-fit: scale-down;
-      object-position: right;
-      width: 56px;
-      align-self: end;
-      z-index: 2;
-      padding: 10px;
-      position: absolute; /* Use absolute positioning */
-    top: 10px; /* Adjust the top position as needed */
-    right: 50px; /* Adjust the left position as needed */
+  .logo-right {
+    aspect-ratio: 1.5;
+    object-fit: scale-down;
+    object-position: right;
+    width: 5.6vw; /* Use viewport width for size */
+    position: absolute; /* Use absolute positioning */
+    top: 1vh; /* Adjust the top position as needed */
+    right: 1vw; /* Adjust the right position as needed */
     z-index: 2;
-    }
+    padding: 1vh; /* Use viewport units for padding */
+    transform: scale(0.8);
+  }
 
-    .background-image {
-      position: absolute;
-      inset: 0;
-      height: 100%;
-      width: 100%;
-      background-attachment: fixed;
-      object-fit: cover;
-      object-position: center;
-      z-index: 0;
-    }
+  .background-image {
+    position: absolute;
+    inset: 0;
+    height: 100%;
+    width: 100%;
+    background-attachment: fixed;
+    object-fit: cover;
+    object-position: center;
+    z-index: 0;
+  }
   
     .content-wrapper {
     transform: scale(0.6); /* Scale the content to 80% */
-    transform-origin: top; /* Set scaling origin */
+    transform-origin: middle; /* Set scaling origin */
     width: 125%; /* Adjust to compensate for scaling */
     height: 125%; /* Adjust to compensate for scaling */
     position: relative;
@@ -84,16 +82,12 @@
     width: fit-content;
     justify-content: center;
     align-items: center;
-
     }
-  
-
   
     .content-container {
       border-radius: 92px;
       background-color: rgba(17, 17, 27, 0.66);
       display: flex;
-      margin-top: 26px;
       width: 100%;
       max-width: 1243px;
       flex-direction: column;
