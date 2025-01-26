@@ -70,7 +70,7 @@
 </html> -->
 
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link type="image/png" sizes="16x16" rel="icon" href="../assets/Favicon.png">
+<link type="image/png" sizes="16x16" rel="icon" href="../static/assets/Favicon.png">
 
 <style>
     /* fixed white bg*/
@@ -479,73 +479,48 @@
                     document.getElementById("background-image").src = imageUrl;
                     document.getElementById("hackathon-title").textContent = "${hackathonTitle}";
 
-                    const ideasGrid = document.querySelector('.ideas-grid');
-                    const template = document.querySelector('#idea-card-template');
-                  
-                    // Clear any previous content (optional, to prevent stacking of content)
-                    ideasGrid.innerHTML = '';
-
-                    // Loop through each idea and display it
-                    ideaData.forEach(idea => {
-                        const clone = template.content.cloneNode(true);
-
-                        // Loop over each key-value pair in the idea object in insertion order
-                        Object.entries(idea).forEach(([key, value]) => {
-                            const itemWrapper = document.createElement('div');
-                            itemWrapper.classList.add('idea-item');
-                            itemWrapper.style.marginBottom = "10px"; // Add space between each field-value group
-
-                            // Create the label for the key
-                            const label = document.createElement('strong');
-                            label.textContent = ${key}: ;
-                            itemWrapper.appendChild(label);
-
-                            // Create the content for the value
-                            const content = document.createElement('span');
-                            if (Array.isArray(value)) {
-                                const list = document.createElement('ul');
-                                value.forEach(item => {
-                                    const li = document.createElement('li');
-                                    li.textContent = • ${item};
-                                    list.appendChild(li);
-                                });
-                                content.appendChild(list);
-                            } else {
-                                content.textContent = value;
-                            }
-
-                            itemWrapper.appendChild(content);
-                            clone.querySelector('.idea-description').appendChild(itemWrapper);
-                        });
-
-                        ideasGrid.appendChild(clone);
-                    });
-
-                    // Optionally, stop polling after result is loaded
-                    clearInterval(pollInterval);  // Stop further polling
-
-                } else {
-                    console.log("Result still processing...");
-                }
-            })
-            .catch(error => {
-                console.error("Error fetching result:", error);
-            });
-    }
-
-    // Polling function to check if the result is ready
-    const pollInterval = setInterval(() => {
-        fetch(/get_processed_result/${requestId})
-            .then(response => response.json())
-            .then(data => {
-                if (data.message === "Result available") {
-                    fetchProcessedResult();  // If result is available, render it
-                }
-            })
-            .catch(error => {
-                console.error("Error checking processing status:", error);
-            });
-    }, 2000); // Poll every 2 seconds
-});
-
-</script>
+    const ideasGrid = document.querySelector('.ideas-grid');
+    const template = document.querySelector('#idea-card-template');
+  
+    ideaData.forEach(idea => {
+      const clone = template.content.cloneNode(true);
+  
+      // Loop over each key-value pair in the idea object
+      for (const [key, value] of Object.entries(idea)) {
+        // Create a new div for each key-value pair
+        const itemWrapper = document.createElement('div');
+        itemWrapper.classList.add('idea-item');
+  
+        // Create the label for the key
+        const label = document.createElement('strong');
+        label.textContent = `${key}: `;
+        itemWrapper.appendChild(label);
+  
+        // Create the content for the value
+        const content = document.createElement('span');
+        if (Array.isArray(value)) {
+          // If the value is an array (e.g., sponsors or prizes), display each item in a list
+          const list = document.createElement('ul');
+          value.forEach(item => {
+            const li = document.createElement('li');
+            li.textContent = `• ${item}`;
+            list.appendChild(li);
+          });
+          content.appendChild(list);
+        } else {
+          // Otherwise, display the value as plain text
+          content.textContent = value;
+        }
+  
+        itemWrapper.appendChild(content);
+        clone.querySelector('.idea-description').appendChild(itemWrapper);
+      }
+  
+      ideasGrid.appendChild(clone);
+    });
+  
+    // Close button handler
+    document.querySelector('.header-close').addEventListener('click', function() {
+      window.location.href = "/";
+    });
+  </script>

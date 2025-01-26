@@ -10,7 +10,7 @@ options.add_argument("--disable-gpu")  # Disable GPU for headless (optional)
 
 
 def get_title_prizes_companies(url):
-    service = Service(r".\assets\chromedriver.exe")
+    service = Service(r".\static\assets\chromedriver.exe")
     driver = webdriver.Chrome(service=service, options=options)
 
     driver.get(url)

@@ -34,6 +34,9 @@
     }
   
     .logo-top {
+      background-color: transparent;
+      outline: transparent;
+      border: none;
     aspect-ratio: 1.5;
     object-fit: scale-down;
     object-position: left;
@@ -44,6 +47,15 @@
     z-index: 2;
     padding: 1vh; /* Use viewport units for padding */
     transform: scale(0.8);
+    content: url('https://cdn.builder.io/api/v1/image/assets/TEMP/03c0d03340a0337a536b543816892aedfb18a0e3f17cc9297e6d7514d0a9e9c7?placeholderIfAbsent=true&apiKey=112d4d886e2a4db6818d16e1c07ef352');
+  }
+
+  /*light mode image change*/
+  body.light-mode .logo-top {
+    content: url('../static/assets/sun.png');
+}
+  body.light-mode .background-image {
+    content: url('../static/assets/Code-png-light.png');
   }
 
   .logo-right {
@@ -68,6 +80,7 @@
     object-fit: cover;
     object-position: center;
     z-index: 0;
+    content: url('https://cdn.builder.io/api/v1/image/assets%2F112d4d886e2a4db6818d16e1c07ef352%2F7e5f425182e3472a869e28a8c9274d56');
   }
   
     .content-wrapper {
@@ -96,6 +109,10 @@
       align-items: center;
       padding: 200px 80px 270px 80px;
     }
+
+    body.light-mode .content-container {
+      background-color: rgba(239, 241, 245, 0.66);
+    }
   
     .content-inner {
       display: flex;
@@ -116,6 +133,10 @@
       font-weight: 500;
       color: rgba(203, 166, 247, 1);
     }
+
+    body.light-mode .title-highlight {
+      color: #A339EF;
+    }
   
     .title-punctuation {
       font-family: JetBrains Mono, -apple-system, Roboto, Helvetica, sans-serif;
@@ -127,6 +148,10 @@
     .description {
       color: rgba(143, 149, 174, 1);
       font-size: 24px;
+    }
+
+    body.light-mode .description {
+      color: rgba(119, 124, 147, 1);
     }
   
     .search-container {
@@ -158,6 +183,15 @@
     .search-bar:hover{
       background-color: #313244;
     }
+
+    body.light-mode .search-bar {
+      background-color: rgba(230, 233, 239, 1);
+    }
+
+    body.light-mode .search-bar:hover {
+      background-color: rgba(202, 207, 225, 1);
+    }
+
   
     .search-input-wrapper {
       display: flex;
@@ -185,6 +219,10 @@
       font-family: JetBrains Mono, -apple-system, Roboto, Helvetica, sans-serif;
       color: rgba(186, 194, 222, 1);
     }
+
+    body.light-mode .search-text {
+      color: rgba(92, 95, 119, 1);
+    }
     .search-text:focus {
     border: none; /* Remove border on focus */
     outline: none; /* Remove outline on focus */
@@ -204,6 +242,15 @@
         background: transparent;
         border: none;
         outline: none;
+        --svg-color: rgba(203, 166, 247, 1);
+    }
+
+    body.light-mode .action-button {
+      --svg-color: rgba(163, 57, 239, 1);
+    }
+
+    svg {
+      fill: var(--svg-color);
     }
   
     @media (max-width: 991px) {
@@ -269,23 +316,23 @@
   </style>
     <script src="../static/j.js"></script>
 
-    <link type="image/png" sizes="16x16" rel="icon" href="../assets/Favicon.png">
+    <link type="image/png" sizes="16x16" rel="icon" href="../static/assets/Favicon.png">
 
 
   <div class="welcome-container">
     <div class="main-wrapper">
       <img
         loading="lazy"
-        src="https://cdn.builder.io/api/v1/image/assets%2F112d4d886e2a4db6818d16e1c07ef352%2F7e5f425182e3472a869e28a8c9274d56"
         class="background-image"
         alt=""
       />
+      <button class="logo-top">
       <img
         loading="lazy"
-        src="https://cdn.builder.io/api/v1/image/assets/TEMP/03c0d03340a0337a536b543816892aedfb18a0e3f17cc9297e6d7514d0a9e9c7?placeholderIfAbsent=true&apiKey=112d4d886e2a4db6818d16e1c07ef352"
         class="logo-top"
         alt="Top logo"
       />
+      </button>
       <a href="https://github.com/Lina674/McHacks12" target="_blank" rel="noopener noreferrer">
       <img
           loading="lazy"
@@ -326,12 +373,9 @@
                   </div>
                 </div>
                 <button class="action-button" aria-label="Submit" id="submitBtn">
-                  <img
-                    loading="lazy"
-                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/30e6b4810a54cca86796f34427ba9d741afc8ea27b04c6f59e20093b91f7d9a2?placeholderIfAbsent=true&apiKey=112d4d886e2a4db6818d16e1c07ef352"
-                    class="action-icon"
-                    alt=""
-                  />
+                  <svg xmlns="http://www.w3.org/2000/svg" width="27" height="35" viewBox="0 0 27 35" fill="none">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M6.98248 29.1474V5.82645L24.8258 17.4864L6.98248 29.1474ZM26.1984 15.9873L7.39338 3.29713C6.27768 2.66868 5 2.94926 5 4.99301V29.9808C5 32.0101 6.37065 32.3715 7.39338 31.6757L26.1984 18.9866C27.2821 18.1915 27.2521 16.7182 26.1984 15.9873Z"/>
+                  </svg>
                 </button>
               </form>
             </div>
@@ -340,3 +384,22 @@
       </div>
     </div>
   </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+    const body = document.body;
+    const toggleButton = document.querySelector('.logo-top');
+
+    // Check for saved theme in localStorage
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'light') {
+      body.classList.add('light-mode');
+    }
+
+    // Toggle light mode on button click
+    toggleButton.addEventListener('click', () => {
+      const isLightMode = body.classList.toggle('light-mode');
+      localStorage.setItem('theme', isLightMode ? 'light' : 'dark');
+    });
+  });
+  </script>
