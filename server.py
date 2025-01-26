@@ -13,7 +13,7 @@ processing_results = {}
 
 @server.route('/')
 def home():
-    return render_template('templates/home.html')
+    return render_template('index.html')
 
 @server.route('/loading')
 def loading():
