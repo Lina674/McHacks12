@@ -78,14 +78,14 @@
     box-sizing: border-box; /* Ensure consistent box-sizing */
     width: 100%; /* Ensure the body spans the full width */
     height: 100%; /* Ensure the body spans the full height */
-    overflow: hidden; /* Prevent horizontal scrolling */
+    overflow-x: hidden; /* Prevent horizontal scrolling */
     }
 
     .welcome-container {
       background-color: rgba(0, 0, 0, 1);
       display: flex;
       flex-direction: column;
-      overflow: hidden;
+      overflow-x: hidden;
       font-family: JetBrains Mono, -apple-system, Roboto, Helvetica, sans-serif;
       font-weight: 500;
       justify-content: center;
@@ -109,7 +109,7 @@
     object-fit: scale-down;
     object-position: left;
     width: 5.6vw; /* Use viewport width for size */
-    position: absolute; /* Use absolute positioning */
+    position: fixed; /* Use absolute positioning */
     top: 1vh; /* Adjust the top position as needed */
     left: 1vw; /* Adjust the left position as needed */
     z-index: 2;
@@ -122,7 +122,7 @@
     object-fit: scale-down;
     object-position: right;
     width: 5.6vw; /* Use viewport width for size */
-    position: absolute; /* Use absolute positioning */
+    position: fixed; /* Use absolute positioning */
     top: 1vh; /* Adjust the top position as needed */
     right: 1vw; /* Adjust the right position as needed */
     z-index: 2;
@@ -131,7 +131,7 @@
   }
 
   .background-image {
-    position: absolute;
+    position: fixed;
     inset: 0;
     height: 100%;
     width: 100%;
@@ -142,18 +142,17 @@
   }
   
     .content-wrapper {
-        transform: scale(0.6); /* Scale the content to 80% */
-        transform-origin: middle; /* Set scaling origin */
-        width: 125%; /* Adjust to compensate for scaling */
-        height: 125%; /* Adjust to compensate for scaling */
-        position: relative;
+        position: absolute;
+        top: 10vh;
+        left: 50%; /* Center horizontally */
+        transform: translateX(-50%); /* Center horizontally and scale */
         display: flex;
         flex-direction: column;
         flex-grow: 1;
         flex-basis: 0;
         width: fit-content;
-        justify-content: left;
-        align-items: top;
+        justify-content: center;
+        align-items: flex-start;
         gap: 5vh;
     }
 
@@ -169,6 +168,7 @@
     }
   
     .background-hackathon-image {
+        border-radius: 24px;
         position: absolute;
         inset: 0;
         height: 100%;
@@ -178,6 +178,7 @@
     }
 
     .foreground-image {
+        border-radius: 24px;
         aspect-ratio: 7.14;
         object-fit: contain;
         object-position: center;
@@ -191,44 +192,144 @@
       border-radius: 92px;
       background-color: rgba(17, 17, 27, 0.66);
       display: flex;
-      width: 100%;
       max-width: 1243px;
       flex-direction: column;
-      padding: 270px 80px;
+      padding: 2vh 80px 5vh 80px;
+      align-items: flex-start;
     }
   
     .content-inner {
       display: flex;
-      margin-bottom: -54px;
       flex-direction: column;
     }
+    
+    .ide-wrapper {
+            background-color: rgba(17, 17, 27, 0.9);
+            border-radius: 24px;
+            padding: 24px;
+            margin-top: 32px;
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
 
-  
-    .title {
-      color: rgba(255, 255, 255, 1);
-      align-self: start;
-      font: 600 64px Spline Sans Mono, -apple-system, Roboto, Helvetica, sans-serif;
-      padding: 0; /* Ensure no padding */
-        margin: 0; /* Ensure no margin */
-    }
-  
-    .title-highlight {
-      font-family: JetBrains Mono, -apple-system, Roboto, Helvetica, sans-serif;
-      font-weight: 500;
-      color: rgba(203, 166, 247, 1);
-    }
-  
-    .title-punctuation {
-      font-family: JetBrains Mono, -apple-system, Roboto, Helvetica, sans-serif;
-      font-weight: 500;
-      font-size: 96px;
-      color: rgba(249, 226, 146, 1);
-    }
-  
-    .description {
-      color: rgba(143, 149, 174, 1);
-      font-size: 24px;
-    }
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 16px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 24px;
+        }
+
+        .header-title {
+            color: #a8b2d1;
+            font: 16px monospace;
+        }
+
+        .header-close {
+            color: #a8b2d1;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 4px;
+            transition: color 0.3s ease;
+        }
+
+        .header-close:hover {
+            color: #ffffff;
+        }
+
+        .header-close:focus {
+            outline: 2px solid #ffffff;
+            outline-offset: 2px;
+        }
+
+        .ideas-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+        }
+
+        .idea-card {
+            background-color: rgba(31, 31, 51, 0.8);
+            border-radius: 16px;
+            padding: 24px;
+            color: #a8b2d1;
+            font-family: monospace;
+            transition: transform 0.3s ease;
+        }
+
+        .idea-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .idea-title {
+            color: #c792ea;
+            margin-bottom: 16px;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .idea-description {
+            color: #89ddff;
+            margin-bottom: 16px;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .sponsor-container,
+        .prize-container {
+            color: #f8d74c;
+            margin-top: 16px;
+        }
+
+        .sponsor-items,
+        .prize-items {
+            color: #a8b2d1;
+            list-style: none;
+            padding-left: 20px;
+            margin-top: 8px;
+        }
+
+        .sponsor-items li,
+        .prize-items li {
+            margin-bottom: 4px;
+        }
+
+      @media (prefers-reduced-motion: reduce) {
+          .idea-card {
+              transition: none;
+          }
+      }
+
+      @media (max-width: 991px) {
+          .ideas-grid {
+              grid-template-columns: 1fr;
+          }
+          .idea-card {
+              padding: 16px;
+          }
+      }
+
+      @media (max-width: 640px) {
+          .ide-wrapper {
+              padding: 16px;
+          }
+          .idea-card {
+              font-size: 14px;
+          }
+      }
+
+      @media screen and (forced-colors: active) {
+          .ide-wrapper {
+              border: 2px solid CanvasText;
+          }
+          .header-close {
+              border: 1px solid CanvasText;
+          }
+        }
+
   
     @media (max-width: 991px) {
       .main-wrapper {
@@ -272,7 +373,7 @@
       height: 1px;
       padding: 0;
       margin: -1px;
-      overflow: hidden;
+      overflow-x: hidden;
       clip: rect(0, 0, 0, 0);
       border: 0;
     }
@@ -315,17 +416,99 @@
           </div>
         <div class="content-container">
           <div class="content-inner">
-            <h1 class="title">
-              <span class="title-highlight">WhatTheHack</span>
-              <span class="title-punctuation">?</span>
-            </h1>
-            <p class="description">
-              An idea generator for Devpost hackathons based on sponsors, prize
-              categories, and more!
-            </p>
+            <div class="ide-wrapper" role="main">
+              <div class="header-container">
+                  <div class="header-title" role="heading" aria-level="1">
+                      hackathon = "Predictive AI In Healthcare with FHIR®";
+                  </div>
+                  <button class="header-close" aria-label="Close window">×</button>
+              </div>
+              <div class="ideas-grid">
+                  <template id="idea-card-template">
+                      <div class="idea-card">
+                          <h2 class="idea-title"></h2>
+                          <div class="idea-description"></div>
+                          <div class="sponsor-container">
+                              <span>These sponsors will love this:</span>
+                              <ul class="sponsor-items"></ul>
+                          </div>
+                          <div class="prize-container">
+                              <span>Compatible with prizes:</span>
+                              <ul class="prize-items"></ul>
+                          </div>
+                      </div>
+                  </template>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+
+  <script>
+    const ideaData = [
+        {
+            title: "Hackathon Idea Generator",
+            description: "A gerasfklasjfopasfjaksfowjf;lw afoawjgl;awkg;awljgl;awkgl;aw jgl;awgopawjgopawjgoawgoakw;g lkawld;kawokawdkawokd",
+            sponsors: ["NordVPN", "GumLoop"],
+            prizes: ["Chaotic Evil", "Best Design"]
+        },
+        {
+            title: "Weather App",
+            description: "No fucking way a weather app",
+            sponsors: ["NordVPN", "GumLoop"],
+            prizes: ["Chaotic Evil", "Best Design"]
+        },
+        {
+            title: "Hackathon Idea Generator",
+            description: "A gerasfklasjfopasfjaksfowjf;lw afoawjgl;awkg;awljgl;awkgl;aw jgl;awgopawjgopawjgoawgoakw;g lkawld;kawokawdkawokd",
+            sponsors: ["NordVPN", "GumLoop"],
+            prizes: ["Chaotic Evil", "Best Design"]
+        },
+        {
+            title: "Hackathon Idea Generator",
+            description: "A gerasfklasjfopasfjaksfowjf;lw afoawjgl;awkg;awljgl;awkgl;aw jgl;awgopawjgopawjgoawgoakw;g lkawld;kawokawdkawokd",
+            sponsors: ["NordVPN", "GumLoop"],
+            prizes: ["Chaotic Evil", "Best Design"]
+        },
+        {
+            title: "Hackathon Idea Generator",
+            description: "A gerasfklasjfopasfjaksfowjf;lw afoawjgl;awkg;awljgl;awkgl;aw jgl;awgopawjgopawjgoawgoakw;g lkawld;kawokawdkawokd",
+            sponsors: ["NordVPN", "GumLoop"],
+            prizes: ["Chaotic Evil", "Best Design"]
+        }
+        
+    ];
+
+    const ideasGrid = document.querySelector('.ideas-grid');
+    const template = document.querySelector('#idea-card-template');
+
+    ideaData.forEach(idea => {
+        const clone = template.content.cloneNode(true);
+        
+        clone.querySelector('.idea-title').textContent = idea.title;
+        clone.querySelector('.idea-description').textContent = idea.description;
+        
+        const sponsorList = clone.querySelector('.sponsor-items');
+        idea.sponsors.forEach(sponsor => {
+            const li = document.createElement('li');
+            li.textContent = `• ${sponsor}`;
+            sponsorList.appendChild(li);
+        });
+        
+        const prizeList = clone.querySelector('.prize-items');
+        idea.prizes.forEach(prize => {
+            const li = document.createElement('li');
+            li.textContent = `• ${prize}`;
+            prizeList.appendChild(li);
+        });
+        
+        ideasGrid.appendChild(clone);
+    });
+
+    document.querySelector('.header-close').addEventListener('click', function() {
+      /* ADD SCRIPT HERE TO RETURN TO HOME PAGE*/
+      window.location.href = "/";
+    });
+</script>
