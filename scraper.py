@@ -24,14 +24,16 @@ def get_title_prizes_companies(url):
     prizes = driver.find_elements(By.CSS_SELECTOR, ".prize-title div")
     prize_titles = [prize.text for prize in prizes]
 
-    companies = driver.find_elements(By.CSS_SELECTOR, "article#judges i")
-    companies_text = [p.text for p in companies]
+    #companies = driver.find_elements(By.CSS_SELECTOR, "article#judges i")
+    #companies_text = [p.text for p in companies]
 
     image = driver.find_element(By.CSS_SELECTOR, ".header-image a img")
     image_src = image.get_attribute("src")
 
     driver.quit()
-    return (title, prize_titles, companies_text, image_src)
+    # return (title, prize_titles, companies_text, image_src)
+    return (title, prize_titles, image_src)
+
 
 
 # t,p,c,i = get_title_prizes_companies("https://mchacks-12.devpost.com/?ref_feature=challenge&ref_medium=discover")
