@@ -25,17 +25,16 @@ chat_session = model.start_chat(
 # Get reponse from gemini and parse it into dictionary
 def get_parsed_reponse(url : str) -> str :
     
-    title,companies,prizes, image_link = get_title_prizes_companies(url)
-    print(f'companies : {companies}')
-    print(f'prizes : {prizes}')
+    title,prizes, image_link = get_title_prizes_companies(url)
+    #print(f'companies : {companies}')
+    #print(f'prizes : {prizes}')
     prompt = f"""
 
     Generate a table containing a generous amount of new, diverse and detailed winning hackathon ideas. 
-    The hackathon is sponsered by these companies : {companies} , and these 
-    are the possible prizes : {prizes}.
+    Here are the possible prizes of the hackathon : {prizes}.
 
-    Cater each of the project ideas to a sponsoring company and a prize. You can include more
-    than one prize and more than one sponsor per project idea. 
+    Cater each of the project ideas to each of the prizes. You can include more
+    than one prize per project idea. 
 
     """
 
