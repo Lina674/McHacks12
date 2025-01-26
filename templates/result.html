@@ -52,12 +52,12 @@
         // Poll the server every 2 seconds to check if the result is ready
         const pollInterval = setInterval(() => {
             if (requestId) {
-                fetch(`/get_processed_result/${requestId}`)
+                fetch(/get_processed_result/${requestId})
                     .then(response => response.json())
                     .then(data => {
                         if (data.message === "Result available") {
                             clearInterval(pollInterval); // Stop polling
-                            window.location.href = `/result/${requestId}`; // Redirect to result page
+                            window.location.href = /result/${requestId}; // Redirect to result page
                         }
                     })
                     .catch(error => {
@@ -380,6 +380,10 @@
       clip: rect(0, 0, 0, 0);
       border: 0;
     }
+
+    #background-image {
+      border-radius: 5%;  /* Fully round corners, works best with square images */
+    }
   </style>
     <script src="../static/j.js"></script>
 
@@ -408,25 +412,19 @@
       <div class="content-wrapper">
         <div class="banner-container">
             <img
-              loading="lazy"
-              src="https://d112y698adiu2z.cloudfront.net/photos/production/challenge_background_images/003/178/167/datas/original.png";"
-              alt=""
-              class="background-hackathon-image";
-            />
-            <img
-              loading="lazy"
-              src="https://d112y698adiu2z.cloudfront.net/photos/production/challenge_photos/003/211/198/datas/full_width.png";
-              class="foreground-image";
-            />
+              id="background-image"
+              />
           </div>
         <div class="content-container">
           <div class="content-inner">
             <div class="ide-wrapper" role="main">
               <div class="header-container">
+                <div class="header-container">
                   <div class="header-title" role="heading" aria-level="1">
                       hackathon <span style="color: #94E2D5;">=</span> 
-                      <span style="color: #A6E396;">"Predictive AI In Healthcare with FHIR®"</span>;
+                      <span style="color: #A6E396;" id="hackathon-title"></span>;
                   </div>
+              </div>
                   <button class="header-close" aria-label="Close window">×</button>
               </div>
               <div class="ideas-grid">
@@ -455,54 +453,99 @@
   </div>
 
   <script>
-    
-    fetch('/get_processed_result/{{ request_id }}') // Adjust the URL as per your routing in Flask
-      .then(response => response.json())
-      .then(data => {
-      const ideaData = data.result.ideas_list;  // Directly extract the idea data from the response
+    document.addEventListener("DOMContentLoaded", () => {
+    // Get the request ID from localStorage
+    const requestId = localStorage.getItem("request_id");
 
-    const ideasGrid = document.querySelector('.ideas-grid');
-    const template = document.querySelector('#idea-card-template');
-  
-    ideaData.forEach(idea => {
-      const clone = template.content.cloneNode(true);
-  
-      // Loop over each key-value pair in the idea object
-      for (const [key, value] of Object.entries(idea)) {
-        // Create a new div for each key-value pair
-        const itemWrapper = document.createElement('div');
-        itemWrapper.classList.add('idea-item');
-  
-        // Create the label for the key
-        const label = document.createElement('strong');
-        label.textContent = `${key}: `;
-        itemWrapper.appendChild(label);
-  
-        // Create the content for the value
-        const content = document.createElement('span');
-        if (Array.isArray(value)) {
-          // If the value is an array (e.g., sponsors or prizes), display each item in a list
-          const list = document.createElement('ul');
-          value.forEach(item => {
-            const li = document.createElement('li');
-            li.textContent = `• ${item}`;
-            list.appendChild(li);
-          });
-          content.appendChild(list);
-        } else {
-          // Otherwise, display the value as plain text
-          content.textContent = value;
+    // Function to fetch the processed result and update the UI
+    function fetchProcessedResult() {
+        if (!requestId) {
+            console.error("Request ID is not available.");
+            return;
         }
-  
-        itemWrapper.appendChild(content);
-        clone.querySelector('.idea-description').appendChild(itemWrapper);
-      }
-  
-      ideasGrid.appendChild(clone);
-    });
-  
-    // Close button handler
-    document.querySelector('.header-close').addEventListener('click', function() {
-      window.location.href = "/";
-    });
-  </script>
+
+        fetch(/get_processed_result/${requestId})
+            .then(response => response.json())
+            .then(data => {
+                if (data.message === "Result available") {
+                    // Result is available, render the data
+                    const ideaData = data.result.ideas_list;  // Extract ideas list from the response
+
+                    // Extract the image_src and other data from the response
+                    const imageUrl = data.result.image_src;  // Extract the image source URL
+                    const hackathonTitle = data.result.hackathon_title;
+
+                    // Dynamically set the background image
+                    document.getElementById("background-image").src = imageUrl;
+                    document.getElementById("hackathon-title").textContent = "${hackathonTitle}";
+
+                    const ideasGrid = document.querySelector('.ideas-grid');
+                    const template = document.querySelector('#idea-card-template');
+                  
+                    // Clear any previous content (optional, to prevent stacking of content)
+                    ideasGrid.innerHTML = '';
+
+                    // Loop through each idea and display it
+                    ideaData.forEach(idea => {
+                        const clone = template.content.cloneNode(true);
+
+                        // Loop over each key-value pair in the idea object in insertion order
+                        Object.entries(idea).forEach(([key, value]) => {
+                            const itemWrapper = document.createElement('div');
+                            itemWrapper.classList.add('idea-item');
+                            itemWrapper.style.marginBottom = "10px"; // Add space between each field-value group
+
+                            // Create the label for the key
+                            const label = document.createElement('strong');
+                            label.textContent = ${key}: ;
+                            itemWrapper.appendChild(label);
+
+                            // Create the content for the value
+                            const content = document.createElement('span');
+                            if (Array.isArray(value)) {
+                                const list = document.createElement('ul');
+                                value.forEach(item => {
+                                    const li = document.createElement('li');
+                                    li.textContent = • ${item};
+                                    list.appendChild(li);
+                                });
+                                content.appendChild(list);
+                            } else {
+                                content.textContent = value;
+                            }
+
+                            itemWrapper.appendChild(content);
+                            clone.querySelector('.idea-description').appendChild(itemWrapper);
+                        });
+
+                        ideasGrid.appendChild(clone);
+                    });
+
+                    // Optionally, stop polling after result is loaded
+                    clearInterval(pollInterval);  // Stop further polling
+
+                } else {
+                    console.log("Result still processing...");
+                }
+            })
+            .catch(error => {
+                console.error("Error fetching result:", error);
+            });
+    }
+
+    // Polling function to check if the result is ready
+    const pollInterval = setInterval(() => {
+        fetch(/get_processed_result/${requestId})
+            .then(response => response.json())
+            .then(data => {
+                if (data.message === "Result available") {
+                    fetchProcessedResult();  // If result is available, render it
+                }
+            })
+            .catch(error => {
+                console.error("Error checking processing status:", error);
+            });
+    }, 2000); // Poll every 2 seconds
+});
+
+</script>
