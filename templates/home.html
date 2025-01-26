@@ -94,7 +94,7 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      padding: 270px 80px;
+      padding: 200px 80px 270px 80px;
     }
   
     .content-inner {
@@ -141,30 +141,32 @@
   
     .search-wrapper {
       display: flex;
-      flex-direction: column;
+      flex-direction: grid;
       flex-grow: 1;
       flex-basis: 0;
       width: fit-content;
+      gap: 3vh;
     }
   
     .search-bar {
       border-radius: 21px;
       background-color: rgba(24, 24, 37, 1);
+      padding: 11px 11px;
       display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 11px 70px;
+      flex-grow: 1;
+    }
+    .search-bar:hover{
+      background-color: #313244;
     }
   
     .search-input-wrapper {
       display: flex;
-      width: 219px;
+      flex-grow: 1;
       max-width: 100%;
       gap: 8px;
       border: none;
-    background: transparent;
-    align-items: center; /* Center items vertically */
+      background: transparent;
+      align-items: center; /* Center items vertically */
     }
   
     .search-icon {
@@ -192,7 +194,7 @@
       aspect-ratio: 1;
       object-fit: contain;
       object-position: center;
-      width: 27px;
+      width: 35px;  
       margin: auto 0;
       background: transparent;
       border: none;
@@ -202,8 +204,6 @@
         background: transparent;
         border: none;
         outline: none;
-        padding: 0px;
-        align-self: center;
     }
   
     @media (max-width: 991px) {
@@ -322,15 +322,15 @@
                     />
                   </div>
                 </div>
+                <button class="action-button" aria-label="Submit" id="submitBtn">
+                  <img
+                    loading="lazy"
+                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/30e6b4810a54cca86796f34427ba9d741afc8ea27b04c6f59e20093b91f7d9a2?placeholderIfAbsent=true&apiKey=112d4d886e2a4db6818d16e1c07ef352"
+                    class="action-icon"
+                    alt=""
+                  />
+                </button>
               </form>
-              <button class="action-button" aria-label="Submit" id="submitBtn">
-                <img
-                  loading="lazy"
-                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/30e6b4810a54cca86796f34427ba9d741afc8ea27b04c6f59e20093b91f7d9a2?placeholderIfAbsent=true&apiKey=112d4d886e2a4db6818d16e1c07ef352"
-                  class="action-icon"
-                  alt=""
-                />
-              </button>
             </div>
           </div>
         </div>
