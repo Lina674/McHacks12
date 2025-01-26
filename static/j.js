@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
     function checkProcessingStatus() {
         const requestId = localStorage.getItem('request_id');
         if (requestId) {
-            fetch(`http://127.0.0.1:5000/get_processed_result/${requestId}`)
+            fetch(`${backendUrl}/get_processed_result/${requestId}`)
             .then(response => response.json())
             .then(data => {
                 console.log("Polling response:", data);  // For debugging
