@@ -11,14 +11,27 @@
         <div class="spinner"></div>
         <p>Loading...</p>
     </div>
+
     <script>
-        // Redirect to the entered URL after 2 seconds
-        const url = localStorage.getItem("url");
-        setTimeout(() => {
-            if (url) {
-                window.location.href = url;
+        // Get the request ID from localStorage
+        const requestId = localStorage.getItem("request_id");
+
+        // Poll the server every 2 seconds to check if the result is ready
+        const pollInterval = setInterval(() => {
+            if (requestId) {
+                fetch(`/get_processed_result/${requestId}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.message === "Result available") {
+                            clearInterval(pollInterval); // Stop polling
+                            window.location.href = `/result/${requestId}`; // Redirect to result page
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Error polling for result:", error);
+                    });
             }
-        }, 2000);
+        }, 2000); // Poll every 2 seconds
     </script>
 </body>
 </html>

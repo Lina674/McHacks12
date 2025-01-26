@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Processing Result</title>
+</head>
+<body>
+    <h1>Processing Result</h1>
+    <div id="result">
+        {% if result %}
+            <pre>{{ result }}</pre>
+        {% else %}
+            <p>No result found.</p>
+        {% endif %}
+    </div>
+    <a href="/">Back to Home</a>
+</body>
+</html>
