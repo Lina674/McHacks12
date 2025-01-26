@@ -1,9 +1,7 @@
 from flask import Flask, jsonify, request, render_template, redirect, url_for
 from flask_cors import CORS
-import os
 import random
-import time
-from generator import get_parsed_reponse
+from generator import get_parsed_reponse  # Assuming this function returns the parsed response
 
 server = Flask(__name__)
 # CORS(server)
@@ -18,7 +16,6 @@ def home():
 
 @server.route('/loading')
 def loading():
-    # The loading page will just show a message and keep polling for the result
     return render_template('loading.html')
 
 @server.route('/result/<request_id>')
@@ -26,10 +23,9 @@ def result(request_id):
     # Retrieve the processed result for the specific request_id
     result = processing_results.get(request_id)
     if result:
-        # Pass the result to the template
+        # Pass the result as JSON to the result.html template
         return render_template('result.html', result=result)
     else:
-        # If no result found, redirect back to home
         return redirect(url_for('home'))
 
 @server.route('/get_url', methods=['POST'])
@@ -45,10 +41,7 @@ def handle_json():
 
         # Start processing the URL in a separate thread
         def process_url():
-            # Simulate processing (e.g., waiting for `get_parsed_reponse`)
-            parsed_response = get_parsed_reponse(url)
-            print(parsed_response)
-            # Store the response in the dictionary
+            parsed_response = get_parsed_reponse(url)  # Assuming this returns the parsed data
             processing_results[request_id] = parsed_response
 
         # Start the URL processing in a background thread
@@ -64,13 +57,13 @@ def handle_json():
 
 @server.route('/get_processed_result/<request_id>', methods=['GET'])
 def get_processed_result(request_id):
-    # Check if the result is ready for the given request_id
+    # Retrieve the processed result for the specific request_id
     result = processing_results.get(request_id)
     if result:
-        return jsonify({"message": "Result available"}), 200
+        return jsonify({"message": "Result available", "result": result}), 200
     else:
         return jsonify({"message": "Still processing..."}), 202
-    
+
 app = server
 
 if __name__ == "__main__":
