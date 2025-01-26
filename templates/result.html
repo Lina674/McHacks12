@@ -14,13 +14,13 @@
             <ul>
                 {% for idea in result.ideas_list %}
                     <li>
-                        <h3>{{ idea['Project Title'] }}</h3>
-                        <p><strong>Sponsor(s):</strong> {{ idea['Sponsoring Company(ies)'] }}</p>
-                        <p><strong>Prize(s):</strong> {{ idea['Prize(s)'] }}</p>
-                        <p><strong>Description:</strong> {{ idea['Description'] }}</p>
+                        {% for key, value in idea.items() %}
+                            <p><strong>{{ key }}:</strong> {{ value }}</p>
+                        {% endfor %}
                     </li>
                 {% endfor %}
             </ul>
+
 
             <!-- Display the image -->
             <img src="{{ result.image_src }}" alt="Hackathon Image" style="max-width: 100%; height: auto;">
