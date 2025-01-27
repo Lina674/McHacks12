@@ -33,6 +33,8 @@ def get_parsed_reponse(url : str) -> str :
     Generate a table containing a generous amount of new, diverse and detailed winning hackathon ideas. 
     Here are the possible prizes of the hackathon : {prizes}.
 
+    Qualitative data only, no checkmarks.
+
     Cater each of the project ideas to each of the prizes. You can include more
     than one prize per project idea. 
 
